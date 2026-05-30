@@ -2,15 +2,54 @@
 - [x] Inisialisasi Next.js (TypeScript + App Router + Tailwind)
 - [x] Tambah dependency Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
 - [x] Tambah dokumen PRD + Technical Architecture
-- [ ] Setup Supabase project (URL + keys) di environment lokal
-- [ ] Jalankan `supabase/schema.sql` di Supabase SQL Editor
-- [ ] Jalankan `npm run db:seed` untuk isi katalog produk awal
-- [ ] Implement UI flow: onboarding → catalog → product detail → try-on
-- [ ] Implement upload foto ke Supabase Storage + simpan path di `user_profiles`
-- [ ] Implement endpoint `/api/tryon` (simulasi dulu) + simpan `tryon_results`
+- [x] Isi env Supabase (URL + keys) di `.env.local`
+- [x] Jalankan `supabase/schema.sql` di Supabase SQL Editor
+- [x] Jalankan `npm run db:seed` untuk isi katalog produk awal
+- [ ] (Opsional) Reset demo products via `/admin/products` → “Reset demo (26)”
+- [x] Implement UI flow: landing → onboarding → catalog → product detail → try-on
+- [x] Implement upload foto onboarding ke Supabase Storage + simpan path di `user_profiles`
+- [x] Implement endpoint `/api/tryon` (PixVerse video) + simpan `tryon_results`
+- [x] Admin page (dummy login) untuk CRUD products + upload image
+- [x] User login (dummy) + avatar placeholder di TopNav
+- [x] Cart logic (DB) + add to cart + cart page
+- [x] Checkout + success payment (simulasi) + simpan order ke DB
+- [x] Design tokens (CSS variables) + Tailwind theme untuk light mode + accent tosca
+- [x] Typography modern (Inter + Roboto Flex)
 
 ## Catatan Pekerjaan
 - Repo disetup dengan Next.js + Tailwind, build sudah lolos.
 - Layer Supabase dibuat terpisah untuk browser & server.
 - Query layer dibuat terpisah untuk `products`, `user_profiles`, `tryon_results`.
 - Seeder disediakan via `scripts/seed.mjs` dan npm script `db:seed`.
+- Seeder produk diset jadi 26 items (sport, casual, woman, man + kids 6 items) untuk prototype awal.
+- Template `.env.local` sudah dibuat (tinggal isi value Supabase).
+- Landing page dibuat (Apple-like, light mode) dengan hero video placeholder dan bento grid.
+- Onboarding dibuat (bio-metrics + 4 foto) dengan efek scanning AuraFit (overlay).
+- Catalog page dibuat (server-rendered) mengambil data dari Supabase `products`.
+- Product detail dibuat dengan tombol “Put You As A Model” + viewer before/after (placeholder).
+- Catalog + product detail sekarang render image dari `products.mannequin_media_urls` (fallback ke placeholder).
+- Navbar dibuat lebih e-commerce, interactive (active state, search bar, cart placeholder) dengan style vibrant accent tosca dan tanpa dark mode.
+- Hero section sudah pakai video background full-width dari PixVerse: `/public/assets/pixverse-video/sporty.mp4` + dark overlay untuk readability.
+- Hero dibuat 100svh dan video extend di belakang navbar (offset tinggi navbar).
+- Tambah banner promo placeholder: 1 horizontal banner + 1 promo card ratio 3/4 di landing page.
+- Polishing button hero “Lihat catalog” jadi glassy + gradient stroke (lebih premium).
+- Banner promo horizontal sekarang pakai video `luxury.mp4` + overlay gradient gelap (kiri-bawah → kanan-atas) supaya teks tetap kebaca.
+- Banner video promo di-set ratio 21:9.
+- Landing page ditambah 2 product slider (scrollable) untuk 2 kategori: sport + casual.
+- Landing page ditambah slider kategori woman + kids (di bawah banner promo).
+- Landing page: banner video ads 21:9 khusus kids di atas slider kids.
+- Product slider di landing page pakai Swiper.js.
+- Swiper slider diberi gutter (slidesOffsetBefore/After) + padding vertikal supaya border card tidak kepotong.
+- Admin page dibuat: `/admin/login` (dummy) dan `/admin/products` untuk manage products (create/edit/delete) + upload image ke Supabase Storage bucket `product-images`.
+- Upload image admin: error message dibuat lebih jelas, dan Next Image diizinkan load dari domain Supabase (`*.supabase.co`).
+- Admin products: tombol “Reset demo (20)” (hapus semua lalu seed ulang) + tombol “Generate/Regenerate” image per product via PixVerse CLI.
+- Admin products list dipoles (layout lebih rapi) + thumbnail image 1:1.
+- Admin products form ditambah preview image 1:1 (existing atau file yang baru dipilih) + tombol remove selected file.
+- Admin products: create/edit dipindah jadi modal popup supaya product list bisa full width.
+- Admin products: tombol “Purge images” untuk hapus semua files di bucket `product-images` (folder `products/`).
+- TopNav: tombol logout admin dipindah dari navbar ke action header di halaman admin.
+- User login: `/login` (dummy) set cookie session + simpan user di localStorage, avatar placeholder muncul di navbar + menu logout.
+- Cart: tabel `cart_items` (per session) + API `/api/cart` + halaman `/cart` (quantity update, remove, lanjut checkout).
+- Checkout: API `/api/checkout` simpan `orders` + `order_items`, clear cart, lalu halaman `/checkout/success` tampilkan ringkasan order.
+- Onboarding: submit upload 4 foto + biometrics ke Storage (`tryon/inputs/...`) dan insert `user_profiles`.
+- Try-on: generate video via PixVerse CLI (image-to-video) dari foto front, upload hasil ke Storage (`tryon/results/...`), dan UI menampilkan video hasil.
