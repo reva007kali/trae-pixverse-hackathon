@@ -36,7 +36,7 @@ export default async function Home() {
         <div className="relative -mt-16 h-[100svh] min-h-[720px] w-full overflow-hidden pt-16">
           <video
             className="absolute inset-0 h-full w-full object-cover"
-            src="/assets/pixverse-video/sporty.mp4"
+            src="/assets/pixverse-video/picverse-video-generation.MOV"
             autoPlay
             muted
             loop
