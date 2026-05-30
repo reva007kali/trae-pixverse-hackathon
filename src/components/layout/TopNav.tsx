@@ -94,10 +94,14 @@ export function TopNav({ rightSlot }: { rightSlot?: React.ReactNode }) {
       <Container className="flex h-16 items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4 lg:gap-8">
           <Link href="/" className="group flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-[rgba(31,183,173,0.14)] ring-1 ring-[rgba(31,183,173,0.25)]">
-              <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_0_6px_rgba(31,183,173,0.18)]" />
+            <span className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-2xl bg-[linear-gradient(135deg,rgba(31,183,173,0.92),rgba(31,183,173,0.34),rgba(255,255,255,0.12))] shadow-[0_18px_45px_rgba(31,183,173,0.18)] ring-1 ring-[rgba(13,20,32,0.14)] transition-transform duration-300 group-hover:-translate-y-0.5">
+              <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.60),transparent_55%)]" />
+              <span className="absolute -inset-6 bg-[radial-gradient(circle_at_80%_85%,rgba(8,79,76,0.28),transparent_60%)]" />
+              <span className="relative font-display text-[13px] font-semibold tracking-[-0.06em] text-[rgba(8,79,76,0.92)]">
+                AF
+              </span>
             </span>
-            <span className="max-w-[9rem] truncate whitespace-nowrap font-display text-lg font-semibold tracking-[-0.03em] text-foreground transition-colors group-hover:text-[rgba(8,79,76,0.92)] lg:max-w-none">
+            <span className="max-w-[9rem] truncate whitespace-nowrap font-display text-lg font-semibold tracking-[-0.04em] text-transparent bg-clip-text bg-[linear-gradient(90deg,rgba(15,23,42,0.92),rgba(8,79,76,0.94),rgba(31,183,173,0.95))] transition-[filter] group-hover:brightness-110 lg:max-w-none">
               AuraFit AI
             </span>
           </Link>

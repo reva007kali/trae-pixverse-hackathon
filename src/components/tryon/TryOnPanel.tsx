@@ -134,7 +134,7 @@ export function TryOnPanel({ productId, productName }: { productId: string; prod
       </div>
 
       <div className="mt-7 overflow-hidden rounded-3xl ring-1 ring-border">
-        <div className="relative aspect-[16/10] bg-[linear-gradient(135deg,#ffffff,#eef2f7)]">
+        <div className="relative aspect-[9/16] bg-[linear-gradient(135deg,#ffffff,#eef2f7)]">
           <div className="absolute inset-0 bg-[radial-gradient(closest-side,rgba(31,183,173,0.22),transparent_62%)] opacity-70" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(11,14,18,0.10))]" />
           <div className="absolute left-6 top-6 rounded-full bg-[rgba(255,255,255,0.75)] px-3 py-1 text-[11px] font-medium tracking-[-0.01em] text-foreground ring-1 ring-border">

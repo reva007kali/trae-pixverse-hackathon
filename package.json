@@ -2,6 +2,9 @@
   "name": "aurafit",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,6 +17,7 @@
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.2",
     "next": "16.2.6",
+    "pixverse": "^1.1.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "swiper": "^12.2.0"

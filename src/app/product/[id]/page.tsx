@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { TopNav } from "@/components/layout/TopNav";
 import { TryOnPanel } from "@/components/tryon/TryOnPanel";
-import { ButtonLink } from "@/components/ui/Button";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getProductById } from "@/lib/queries/products";
@@ -99,33 +98,6 @@ export default async function ProductDetailPage({
 
           <div className="grid gap-4 lg:pt-2">
             <TryOnPanel productId={id} productName={product.name} />
-
-            <div className="overflow-hidden rounded-[34px] bg-surface shadow-soft ring-1 ring-border">
-              <div className="relative p-6">
-                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(31,183,173,0.22),rgba(255,255,255,0.0))]" />
-                <div className="relative">
-                  <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[rgba(31,183,173,0.12)] px-3 py-1 text-[11px] font-medium tracking-[-0.01em] text-[rgba(8,79,76,0.92)] ring-1 ring-[rgba(31,183,173,0.22)]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[rgba(31,183,173,0.95)] shadow-[0_0_0_6px_rgba(31,183,173,0.16)]" />
-                    Sponsored
-                  </div>
-                  <p className="mt-4 font-display text-2xl font-semibold tracking-[-0.03em] text-foreground">
-                    Limited drop
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-muted">
-                    Promo kecil untuk highlight koleksi baru. Pakai code:
-                    <span className="ml-1 font-medium text-foreground">AURAFIT</span>
-                  </p>
-                  <div className="mt-5 aspect-[4/3] overflow-hidden rounded-3xl bg-surface-2 ring-1 ring-border">
-                    <div className="h-full w-full bg-[radial-gradient(closest-side,rgba(31,183,173,0.22),transparent_62%)]" />
-                  </div>
-                  <div className="mt-5">
-                    <ButtonLink href="/catalog" variant="secondary" size="md">
-                      Shop collection
-                    </ButtonLink>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </Container>

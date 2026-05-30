@@ -4,6 +4,7 @@ import { spawn } from "node:child_process";
 import { writeFile, unlink } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { createRequire } from "node:module";
 import { createSupabaseServiceClient } from "@/lib/supabase/service";
 
 export const maxDuration = 300;
@@ -31,6 +32,24 @@ function extFromFile(file: File) {
 
 function safeString(value: unknown): string | null {
   return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;
+}
+
+const require = createRequire(import.meta.url);
+
+function pixverseBinPath(): string {
+  const override = safeString(process.env.PIXVERSE_BIN);
+  if (override) return override;
+  try {
+    const pkg = require.resolve("pixverse/package.json");
+    const nodeModulesDir = path.resolve(path.dirname(pkg), "..");
+    return path.join(
+      nodeModulesDir,
+      ".bin",
+      process.platform === "win32" ? "pixverse.cmd" : "pixverse",
+    );
+  } catch {
+    return process.platform === "win32" ? "pixverse.cmd" : "pixverse";
+  }
 }
 
 function recommendSize(heightCm: number, weightKg: number): "S" | "M" | "L" | "XL" {
@@ -66,7 +85,7 @@ async function runPixverseCreateVideo(input: {
   ];
 
   return await new Promise<Record<string, unknown>>((resolve, reject) => {
-    const child = spawn("pixverse", args, { env: process.env });
+    const child = spawn(pixverseBinPath(), args, { env: process.env });
     let stdout = "";
     let stderr = "";
 
@@ -80,7 +99,7 @@ async function runPixverseCreateVideo(input: {
 
     child.on("error", (err) => {
       if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-        reject(new Error("PixVerse CLI belum ter-install. Jalankan: npm install -g pixverse"));
+        reject(new Error("PixVerse CLI belum tersedia. Pastikan dependency 'pixverse' ter-install."));
         return;
       }
       reject(err);

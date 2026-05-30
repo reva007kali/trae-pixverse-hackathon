@@ -1,8 +1,28 @@
 import { NextResponse } from "next/server";
 import { spawn } from "node:child_process";
+import path from "node:path";
+import { createRequire } from "node:module";
 import { createSupabaseServiceClient } from "@/lib/supabase/service";
 
 export const maxDuration = 300;
+
+const require = createRequire(import.meta.url);
+
+function pixverseBinPath(): string {
+  const override = process.env.PIXVERSE_BIN?.trim();
+  if (override) return override;
+  try {
+    const pkg = require.resolve("pixverse/package.json");
+    const nodeModulesDir = path.resolve(path.dirname(pkg), "..");
+    return path.join(
+      nodeModulesDir,
+      ".bin",
+      process.platform === "win32" ? "pixverse.cmd" : "pixverse",
+    );
+  } catch {
+    return process.platform === "win32" ? "pixverse.cmd" : "pixverse";
+  }
+}
 
 function safeStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
@@ -32,7 +52,7 @@ async function runPixverseCreateImage(prompt: string) {
   ];
 
   return await new Promise<Record<string, unknown>>((resolve, reject) => {
-    const child = spawn("pixverse", args, {
+    const child = spawn(pixverseBinPath(), args, {
       env: process.env,
     });
 
@@ -49,7 +69,7 @@ async function runPixverseCreateImage(prompt: string) {
 
     child.on("error", (err) => {
       if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-        reject(new Error("PixVerse CLI belum ter-install. Jalankan: npm install -g pixverse"));
+        reject(new Error("PixVerse CLI belum tersedia. Pastikan dependency 'pixverse' ter-install."));
         return;
       }
       reject(err);
